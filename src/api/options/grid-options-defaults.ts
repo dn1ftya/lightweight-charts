@@ -5,11 +5,11 @@ export const gridOptionsDefaults: GridOptions = {
 	vertLines: {
 		color: '#D6DCDE',
 		style: LineStyle.Solid,
-		visible: true,
+		visible: false,
 	},
 	horzLines: {
 		color: '#D6DCDE',
 		style: LineStyle.Solid,
-		visible: true,
+		visible: false,
 	},
 };

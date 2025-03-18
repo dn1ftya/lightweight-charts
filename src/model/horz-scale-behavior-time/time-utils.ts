@@ -19,7 +19,7 @@ export function businessDayConverter(time: Time): InternalHorzScaleItem {
 	const date = new Date(Date.UTC(businessDay.year, businessDay.month - 1, businessDay.day, 0, 0, 0, 0));
 
 	return {
-		timestamp: Math.round(date.getTime() / 1000) as UTCTimestamp,
+		timestamp: Math.round(date.getTime()) as UTCTimestamp,
 		businessDay,
 	} as unknown as InternalHorzScaleItem;
 }

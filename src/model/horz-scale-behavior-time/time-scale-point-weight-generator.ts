@@ -60,13 +60,15 @@ export function fillWeightsForPoints(sortedTimePoints: readonly Mutable<TimeScal
 	}
 
 	let prevTime = startIndex === 0 ? null : cast(sortedTimePoints[startIndex - 1].time).timestamp;
-	let prevDate = prevTime !== null ? new Date(prevTime * 1000) : null;
+	// let prevDate = prevTime !== null ? new Date(prevTime * 1000) : null;
+	let prevDate = prevTime !== null ? new Date(prevTime) : null;
 
 	let totalTimeDiff = 0;
 
 	for (let index = startIndex; index < sortedTimePoints.length; ++index) {
 		const currentPoint = sortedTimePoints[index];
-		const currentDate = new Date(cast(currentPoint.time).timestamp * 1000);
+		// const currentDate = new Date(cast(currentPoint.time).timestamp * 1000);
+		const currentDate = new Date(cast(currentPoint.time).timestamp);
 
 		if (prevDate !== null) {
 			currentPoint.timeWeight = weightByTime(currentDate, prevDate) as TickMarkWeightValue;
@@ -82,7 +84,9 @@ export function fillWeightsForPoints(sortedTimePoints: readonly Mutable<TimeScal
 		// let's guess a weight for the first point
 		// let's say the previous point was average time back in the history
 		const averageTimeDiff = Math.ceil(totalTimeDiff / (sortedTimePoints.length - 1));
-		const approxPrevDate = new Date((cast(sortedTimePoints[0].time).timestamp - averageTimeDiff) * 1000);
-		sortedTimePoints[0].timeWeight = weightByTime(new Date(cast(sortedTimePoints[0].time).timestamp * 1000), approxPrevDate) as TickMarkWeightValue;
+		// const approxPrevDate = new Date((cast(sortedTimePoints[0].time).timestamp - averageTimeDiff) * 1000);
+		const approxPrevDate = new Date((cast(sortedTimePoints[0].time).timestamp - averageTimeDiff));
+		// sortedTimePoints[0].timeWeight = weightByTime(new Date(cast(sortedTimePoints[0].time).timestamp * 1000), approxPrevDate) as TickMarkWeightValue;
+		sortedTimePoints[0].timeWeight = weightByTime(new Date(cast(sortedTimePoints[0].time).timestamp), approxPrevDate) as TickMarkWeightValue;
 	}
 }

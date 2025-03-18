@@ -30,7 +30,7 @@ export function chartOptionsDefaults<HorzScaleItem>(): ChartOptionsInternal<Horz
 		timeScale: timeScaleOptionsDefaults,
 		localization: {
 			locale: isRunningOnClientSide ? navigator.language : '',
-			dateFormat: 'dd MMM \'yy',
+			dateFormat: 'yyyy-mm-dd',
 		},
 		handleScroll: {
 			mouseWheel: true,

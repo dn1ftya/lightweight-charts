@@ -114,7 +114,8 @@ export class HorzScaleBehaviorTime implements IHorzScaleBehavior<Time> {
 	public cacheKey(item: InternalHorzScaleItem): number {
 		const time = item as unknown as TimePoint;
 		return time.businessDay === undefined
-			? new Date(time.timestamp * 1000).getTime()
+			// ? new Date(time.timestamp * 1000).getTime()
+			? new Date(time.timestamp).getTime()
 			: new Date(Date.UTC(time.businessDay.year, time.businessDay.month - 1, time.businessDay.day)).getTime();
 	}
 
@@ -142,7 +143,8 @@ export class HorzScaleBehaviorTime implements IHorzScaleBehavior<Time> {
 
 	public formatHorzItem(item: InternalHorzScaleItem): string {
 		const tp = item as unknown as TimePoint;
-		return this._dateTimeFormatter.format(new Date(tp.timestamp * 1000));
+		// return this._dateTimeFormatter.format(new Date(tp.timestamp * 1000));
+		return this._dateTimeFormatter.format(new Date(tp.timestamp));
 	}
 
 	public formatTickmark(tickMark: TickMark, localizationOptions: LocalizationOptions<Time>): string {
@@ -180,6 +182,6 @@ export class HorzScaleBehaviorTime implements IHorzScaleBehavior<Time> {
 	}
 
 	public static applyDefaults(options?: DeepPartial<TimeChartOptions>): DeepPartial<TimeChartOptions> {
-		return merge({ localization: { dateFormat: 'dd MMM \'yy' } }, options ?? {});
+		return merge({ localization: { dateFormat: 'yyyy-MM-dd' } }, options ?? {});
 	}
 }
